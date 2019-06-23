@@ -3,7 +3,11 @@ import requests
 import zipfile
 import tqdm
 
-SAVE_DIR = os.environ["HOME"] + "/.SensorSignalDatasets/"
+import pandas as pd
+import numpy as np
+
+
+SAVE_DIR = os.getcwd()
 
 
 def fetch_dataset(url, extract=True):
@@ -17,7 +21,6 @@ def fetch_dataset(url, extract=True):
     r = requests.get(url, stream=True)
     pbar = tqdm.tqdm(total=file_size, unit="B", unit_scale=True)
 
-    print("Downloading {} ...".format(filename))
     with open(filename, "wb") as f:
         for chunk in r.iter_content(chunk_size=1024):
             f.write(chunk)
@@ -28,5 +31,18 @@ def fetch_dataset(url, extract=True):
     if extract:
         with zipfile.ZipFile(filename) as zfile:
             zfile.extractall(SAVE_DIR)
+        os.remove(filename)
 
-    os.remove(filename)
+
+def load_files(filenames):
+    """
+    :type filenames: [str]
+    """
+
+    done = []
+    for name in filenames:
+        data = pd.read_csv(name, header=None, delim_whitespace=True).values
+        done.append(data)
+
+    done = np.dstack(done)
+    return done
