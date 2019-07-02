@@ -15,6 +15,6 @@ setup(
     license='MIT',
     author='Kawashima Hirotaka',
     author_email='',
-    description='Sensor Dataset collection from machine learning',
+    description='Sensor dataset collection for machine learning',
     long_description=open('README.md').read(),
 )
