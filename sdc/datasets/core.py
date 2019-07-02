@@ -1,8 +1,8 @@
 import os
-import requests
 import zipfile
-import tqdm
 
+import tqdm
+import requests
 import pandas as pd
 import numpy as np
 
