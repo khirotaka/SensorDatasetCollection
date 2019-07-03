@@ -1,7 +1,6 @@
 # Sensor Dataset Collection
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/68a2ad7a458945e4b8a3423e5bcd5b1d)](https://app.codacy.com/app/KawashimaHirotaka/SensorDatasetCollection?utm_source=github.com&utm_medium=referral&utm_content=KawashimaHirotaka/SensorDatasetCollection&utm_campaign=Badge_Grade_Dashboard)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/68a2ad7a458945e4b8a3423e5bcd5b1d)](https://app.codacy.com/app/KawashimaHirotaka/SensorDatasetCollection?utm_source=github.com&utm_medium=referral&utm_content=KawashimaHirotaka/SensorDatasetCollection&utm_campaign=Badge_Grade_Dashboard)
 
 Sensor Dataset Collection for Machine Learning.
 
