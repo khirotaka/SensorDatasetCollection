@@ -19,3 +19,30 @@ Purpose of this project is to provide 3 applications.
     - Sensor Dataset Loader 
     - Preprocessing function for sensor data.
     - Examples using sensor data
+
+## Installation
+Before install `SensorDatasetCollection`, please create virtual environment such as `Conda` or `pipenv`
+
+```
+git clone https://github.com/KawashimaHirotaka/SensorDatasetCollection.git
+cd SensorDatasetCollection/
+pip install .
+```
+
+or
+
+```
+git clone https://github.com/KawashimaHirotaka/SensorDatasetCollection.git
+cd SensorDatasetCollection/
+python setup.py install
+```
+
+## Usage
+
+```python
+import sdc
+
+(x_train, y_train), (x_test, y_test) = sdc.datasets.uci.load_har()
+
+```
+
