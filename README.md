@@ -16,9 +16,9 @@ However, there is no easy way to access the data sets, nor is there a well-known
 
 Purpose of this project is to provide 3 applications.
 
-- Sensor Dataset Loader 
-- Preprocessing function for sensor data.
-- Examples using sensor data
+ - Sensor Dataset Loader 
+ - Preprocessing function for sensor data.
+ - Examples using sensor data
 
 ## Installation
 Before install `SensorDatasetCollection`, please create virtual environment such as `Conda` or `pipenv`
