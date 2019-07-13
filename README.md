@@ -23,7 +23,7 @@ Purpose of this project is to provide 3 applications.
 ## Installation
 Before install `SensorDatasetCollection`, please create virtual environment such as `Conda` or `pipenv`
 
-```
+```sh
 git clone https://github.com/KawashimaHirotaka/SensorDatasetCollection.git
 cd SensorDatasetCollection/
 pip install .
@@ -31,7 +31,7 @@ pip install .
 
 or
 
-```
+```sh
 git clone https://github.com/KawashimaHirotaka/SensorDatasetCollection.git
 cd SensorDatasetCollection/
 python setup.py install
