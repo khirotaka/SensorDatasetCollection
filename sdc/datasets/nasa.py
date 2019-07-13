@@ -3,7 +3,7 @@ import zipfile
 
 import pandas as pd
 
-from ..datasets import core
+from . import core
 
 
 BASE_URL = "https://ti.arc.nasa.gov/"
