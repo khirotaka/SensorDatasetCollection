@@ -21,7 +21,15 @@ Purpose of this project is to provide 3 applications.
 *   Examples using sensor data
 
 ## Installation
-Before install `SensorDatasetCollection`, please create virtual environment such as `Conda` or `pipenv`
+Before install `SensorDatasetCollection`, please create virtual environment such as `Conda` or `pipenv`.
+
+```sh
+conda create -n sdc python=3.6
+conda activate sdc
+```
+
+Now, this library does not provide `.whl` file.
+so, please clone this project and install them.
 
 ```sh
 git clone https://github.com/KawashimaHirotaka/SensorDatasetCollection.git
