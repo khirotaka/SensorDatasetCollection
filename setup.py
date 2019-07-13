@@ -1,10 +1,10 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 setup(
     name='SensorDatasetCollection',
     version='0.1-alpha',
-    packages={'': 'sdc'},
+    packages=find_packages(),
     install_requires=[
         'requests',
         'tqdm',
