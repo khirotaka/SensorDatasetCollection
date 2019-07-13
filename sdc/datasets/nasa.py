@@ -29,20 +29,20 @@ def load_turbofan_engine():
             f.extractall("NASA Turbofan")
         os.remove("CMAPSSData.zip")
 
-    types = ["train", "test"]
+    modes = ["train", "test"]
 
-    def load_per_type(type):
+    def load_per_type(mode):
         files = ["_FD001", "_FD002", "_FD003", "_FD004"]
 
         loaded = []
         for file in files:
-            tmp = pd.read_csv("NASA Turbofan/"+type+file+".txt", header=None, delim_whitespace=True).values
+            tmp = pd.read_csv("NASA Turbofan/" + mode + file + ".txt", header=None, delim_whitespace=True).values
             loaded.append(tmp)
 
         return loaded
 
-    train_data = load_per_type(types[0])
-    test_data = load_per_type(types[1])
+    train_data = load_per_type(modes[0])
+    test_data = load_per_type(modes[1])
 
     return train_data, test_data
 
