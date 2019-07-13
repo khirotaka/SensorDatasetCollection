@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-from ..datasets import core
+from . import core
 
 BASE_URL = "http://archive.ics.uci.edu/ml/machine-learning-databases/"
 
