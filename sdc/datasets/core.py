@@ -11,7 +11,7 @@ import numpy as np
 SAVE_DIR = os.getcwd()
 
 
-def fetch_dataset(url: str, extract: bool = True, password: str = None) -> None:
+def fetch_dataset(url: str, extract: bool = True, password: bytes = None) -> None:
     if not os.path.isdir(SAVE_DIR):
         os.makedirs(SAVE_DIR)
 

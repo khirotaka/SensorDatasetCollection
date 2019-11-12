@@ -5,7 +5,6 @@ import webbrowser
 from typing import Tuple
 
 import pandas as pd
-import numpy as np
 
 from . import core
 
@@ -32,7 +31,7 @@ def __fetch_dataset() -> None:
         )
 
 
-def load_data(name: str) -> Tuple[np.ndarray, np.ndarray]:
+def load_data(name: str) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """
     load dataset
 
