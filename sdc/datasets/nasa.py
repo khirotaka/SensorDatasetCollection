@@ -1,7 +1,9 @@
 import os
 import zipfile
+from typing import Tuple, List
 
 import pandas as pd
+import numpy as np
 
 from . import core
 
@@ -9,7 +11,7 @@ from . import core
 BASE_URL = "https://ti.arc.nasa.gov/"
 
 
-def load_turbofan_engine():
+def load_turbofan_engine() -> Tuple[List[pd.DataFrame], List[pd.DataFrame]]:
     """
     Load Turbofan Engine Degradation Simulation Dataset
     from https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/
@@ -31,10 +33,10 @@ def load_turbofan_engine():
 
     modes = ["train", "test"]
 
-    def load_per_type(mode):
+    def load_per_type(mode: str) -> List[pd.DataFrame]:
         files = ["_FD001", "_FD002", "_FD003", "_FD004"]
 
-        loaded = []
+        loaded: List[pd.DataFrame] = []
         for file in files:
             tmp = pd.read_csv("NASA Turbofan/" + mode + file + ".txt", header=None, delim_whitespace=True).values
             loaded.append(tmp)
@@ -47,11 +49,16 @@ def load_turbofan_engine():
     return train_data, test_data
 
 
-def load_phm08(load_all=False):
+def load_phm08(load_all: bool = False) \
+        -> Tuple[pd.DataFrame, pd.DataFrame] or Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """
-    Load PHM08 Challenge Data Set
-    from https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/
-    :return:
+    Load PHM08 Challenge Data Set from https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/
+
+    Args:
+        load_all: bool
+
+    Returns:
+
     """
 
     save_dir = core.SAVE_DIR + "/PHM08/"

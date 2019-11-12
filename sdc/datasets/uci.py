@@ -1,12 +1,15 @@
 import os
+from typing import Tuple
+
 import pandas as pd
+import numpy as np
 
 from . import core
 
 BASE_URL = "http://archive.ics.uci.edu/ml/machine-learning-databases/"
 
 
-def load_har(raw=False):
+def load_har(raw: bool = False) -> Tuple[Tuple[np.ndarray, np.ndarray], Tuple[np.ndarray, np.ndarray]]:
     save_dir = core.SAVE_DIR + "/UCI HAR Dataset/"
 
     if not os.path.isdir(save_dir):

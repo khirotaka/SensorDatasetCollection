@@ -2,18 +2,22 @@ import os
 import sys
 import subprocess
 import webbrowser
+from typing import Tuple
 
 import pandas as pd
+import numpy as np
 
 from . import core
 
 save_dir = core.SAVE_DIR + "/UCRArchive_2018/"
 
 
-def __fetch_dataset():
+def __fetch_dataset() -> None:
     """
     Downloading Dataset.
-    :return:
+
+    Returns:
+        None
     """
     if not os.path.isdir(save_dir):
         sys.stdout.write("Required Password: ")
@@ -28,11 +32,15 @@ def __fetch_dataset():
         )
 
 
-def load_data(name):
+def load_data(name: str) -> Tuple[np.ndarray, np.ndarray]:
     """
     load dataset
-    :param name: Dataset name. Please select from DatasetInformation.show_list() .
-    :return: pd.DataFrame
+
+    Args:
+        name: Dataset name. Please select from DatasetInformation.show_list() .
+
+    Returns:
+        pd.DataFrame
     """
     __fetch_dataset()
 
@@ -42,22 +50,28 @@ def load_data(name):
     return train_data, test_data
 
 
-class DatasetInformation:
+class DatasetInformation(object):
     @classmethod
     def show_list(cls):
         return os.listdir(save_dir)
 
     @classmethod
-    def detail(cls, name, browser=False):
+    def detail(cls, name: str, browser: bool = False) -> str:
         """
         Return detail of dataset.
-        :param name: Dataset name. Please select from DatasetInformation.show_list() .
-        :param browser: if True, open your web browser. default False
-        :return: URL
+
+        Args:
+            name: Dataset name. Please select from DatasetInformation.show_list() .
+            browser: if True, open your web browser. default False
+
+        Returns: str - URL
+
         """
+
         name = save_dir + name + "/README.md"
         cmd = "cat {} | tail -n 1 | cut -c 5-".format(name)
-        res = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True).communicate()[0].decode("utf-8").replace("\n", "")
+        res = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True).communicate()[0].decode("utf-8").\
+            replace("\n", "")
 
         if browser:
             webbrowser.open(res)
