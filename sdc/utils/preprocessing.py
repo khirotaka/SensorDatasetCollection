@@ -25,13 +25,14 @@ class FixedSlidingWindow:
             Args:
                 window_size: int
                 overlap_rate: float
+                step_size: int (default, None)
 
             Raises:
                 AssertionError: an error occur when
                  argument overlap_rate under 0.0 or over 1.0.n error occurred.
 
             """
-    def __init__(self, window_size: int, overlap_rate: float, step_size: int = None) -> None:
+    def __init__(self, window_size: int, overlap_rate: float, step_size=None) -> None:
         self.window_size = window_size
 
         if overlap_rate is None and step_size is not None:
