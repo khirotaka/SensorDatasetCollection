@@ -51,7 +51,7 @@ class FixedSlidingWindow:
 
             self.overlap = int(window_size * overlap_rate)
 
-    def transform(self, inputs: np.ndarray) -> np.array:
+    def transform(self, inputs: np.ndarray) -> np.ndarray:
         """
 
         Args:
