@@ -1,35 +1,43 @@
-from collections import Counter
 from typing import Tuple
+from collections import Counter
 
 import numpy as np
 
 
 class FixedSlidingWindow(object):
-    def __init__(self, window_size: int, overlap_rate=0.5) -> None:
-        """
-        Fixed sliding window.
+    """Fixed sliding window.
 
-        Examples::
+            Examples::
 
-            import numpy as np
-            from sdc.utils.preprocessing import FixedSlidingWindow
+                >>> import numpy as np
+                >>> from sdc.utils.preprocessing import FixedSlidingWindow
 
-            x = np.random.randn(1024, 23)
-            y = np.random.randint(0, 9, 1024)
-            sw = FixedSlidingWindow(256, overlap_rate=0.5)
-            x, y = sw(x, y)
-            x.shape     # [6, 256, 23]
-            y.shape     # [6, ]
+                >>> x = np.random.randn(1024, 23)
+                >>> y = np.random.randint(0, 9, 1024)
+                >>> sw = FixedSlidingWindow(256, overlap_rate=0.5)
+                >>> x, y = sw(x, y)
+                >>> x.shape     # [6, 256, 23]
+                >>> y.shape     # [6, ]
 
-        Args:
-            window_size: int
-            overlap_rate: float
-        """
+            Args:
+                window_size: int
+                overlap_rate: float
 
+            Raises:
+                AssertionError: an error occur when argument overlap_rate under 0.0 or over 1.0.n error occurred.
+
+            """
+    def __init__(self, window_size: int, overlap_rate: float, step_size: int = None) -> None:
         self.window_size = window_size
-        assert 0.0 < overlap_rate <= 1.0
-        self.overlap_rate = overlap_rate
-        self.overlap = int(window_size * overlap_rate)
+
+        if overlap_rate is None and step_size is not None:
+            if 0 < step_size:
+                self.overlap = int(step_size)
+        else:
+            if not 0.0 < overlap_rate <= 1.0:
+                raise AssertionError("overlap_rate ranges from 0.0 to 1.0")
+
+            self.overlap = int(window_size * overlap_rate)
 
     def transform(self, x: np.ndarray) -> np.array:
         """
