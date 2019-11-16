@@ -1,5 +1,4 @@
-"""Preprocessing functions for Time Series.
-"""
+"""Preprocessing functions for Time Series."""
 
 from typing import Tuple
 from collections import Counter
@@ -10,29 +9,38 @@ import numpy as np
 class FixedSlidingWindow:
     """Fixed sliding window.
 
-            Examples::
+    Examples::
 
-                >>> import numpy as np
-                >>> from sdc.utils.preprocessing import FixedSlidingWindow
+        >>> import numpy as np
+        >>> from sdc.utils.preprocessing import FixedSlidingWindow
+        >>> x = np.random.randn(1024, 23)
+        >>> y = np.random.randint(0, 9, 1024)
+        >>> sw = FixedSlidingWindow(256, overlap_rate=0.5)
+        >>> x, y = sw(x, y)
+        >>> x.shape     # [6, 256, 23]
+        >>> y.shape     # [6, ]
 
-                >>> x = np.random.randn(1024, 23)
-                >>> y = np.random.randint(0, 9, 1024)
-                >>> sw = FixedSlidingWindow(256, overlap_rate=0.5)
-                >>> x, y = sw(x, y)
-                >>> x.shape     # [6, 256, 23]
-                >>> y.shape     # [6, ]
+    Args:
+        window_size: int
+        overlap_rate: float
+        step_size: int (default, None)
 
-            Args:
-                window_size: int
-                overlap_rate: float
-                step_size: int (default, None)
+    Raises:
+        AssertionError: an error occur when
+            argument overlap_rate under 0.0 or over 1.0.n error occurred.
 
-            Raises:
-                AssertionError: an error occur when
-                 argument overlap_rate under 0.0 or over 1.0.n error occurred.
+        """
+    def __init__(self, window_size: int, overlap_rate: float, step_size: int = None) -> None:
+        """
 
-            """
-    def __init__(self, window_size: int, overlap_rate: float, step_size=None) -> None:
+        Initializer of FixedSlidingWindow.
+
+        Args:
+            window_size: int
+            overlap_rate: float
+            step_size: int (default, None)
+
+        """
         self.window_size = window_size
 
         if overlap_rate is None and step_size is not None:
@@ -67,7 +75,7 @@ class FixedSlidingWindow:
     @staticmethod
     def clean(labels: np.ndarray) -> np.array:
         """
-
+        Clean up
 
         Args:
             labels:
