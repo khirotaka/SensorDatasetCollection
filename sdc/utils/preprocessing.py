@@ -72,7 +72,7 @@ class FixedSlidingWindow:
         return data
 
     @staticmethod
-    def clean(labels: np.ndarray) -> np.array:
+    def clean(labels: np.ndarray) -> np.ndarray:
         """
         Clean up
 
@@ -97,7 +97,7 @@ class FixedSlidingWindow:
 
         return np.array(tmp)
 
-    def __call__(self, data: np.ndarray, target: np.ndarray) -> Tuple[np.array, np.array]:
+    def __call__(self, data: np.ndarray, target: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
         data = self.transform(data)
         label = self.transform(target)
         label = self.clean(label)
