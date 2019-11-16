@@ -30,7 +30,7 @@ class FixedSlidingWindow:
             argument overlap_rate under 0.0 or over 1.0.n error occurred.
 
     """
-    def __init__(self, window_size, overlap_rate, step_size=None):
+    def __init__(self, wsize: int, rate: float, step: int = None) -> None:
         """
         Initializer of FixedSlidingWindow.
 
@@ -40,16 +40,16 @@ class FixedSlidingWindow:
             step_size: int (default, None)
 
         """
-        self.window_size = window_size
+        self.window_size = wsize
 
-        if overlap_rate is None and step_size is not None:
-            if step_size > 0:
-                self.overlap = int(step_size)
+        if rate is None and step is not None:
+            if step > 0:
+                self.overlap = int(step)
         else:
-            if not 0.0 < overlap_rate <= 1.0:
+            if not 0.0 < rate <= 1.0:
                 raise AssertionError("overlap_rate ranges from 0.0 to 1.0")
 
-            self.overlap = int(window_size * overlap_rate)
+            self.overlap = int(wsize * rate)
 
     def transform(self, inputs: np.ndarray) -> np.ndarray:
         """
