@@ -1,10 +1,13 @@
+"""Preprocessing functions for Time Series.
+"""
+
 from typing import Tuple
 from collections import Counter
 
 import numpy as np
 
 
-class FixedSlidingWindow(object):
+class FixedSlidingWindow:
     """Fixed sliding window.
 
             Examples::
@@ -24,14 +27,15 @@ class FixedSlidingWindow(object):
                 overlap_rate: float
 
             Raises:
-                AssertionError: an error occur when argument overlap_rate under 0.0 or over 1.0.n error occurred.
+                AssertionError: an error occur when
+                 argument overlap_rate under 0.0 or over 1.0.n error occurred.
 
             """
     def __init__(self, window_size: int, overlap_rate: float, step_size: int = None) -> None:
         self.window_size = window_size
 
         if overlap_rate is None and step_size is not None:
-            if 0 < step_size:
+            if step_size > 0:
                 self.overlap = int(step_size)
         else:
             if not 0.0 < overlap_rate <= 1.0:
@@ -39,30 +43,43 @@ class FixedSlidingWindow(object):
 
             self.overlap = int(window_size * overlap_rate)
 
-    def transform(self, x: np.ndarray) -> np.array:
+    def transform(self, inputs: np.ndarray) -> np.array:
         """
 
         Args:
-            x: 2 or 3 dim of np.ndarray
+            inputs: 2 or 3 dim of np.ndarray
 
         Returns:
             np.ndarray
         """
-        seq_len = x.shape[0]
-        assert seq_len > self.window_size
-        data = [x[i:i + self.window_size] for i in range(0, seq_len - self.window_size, self.overlap)]
+        seq_len = inputs.shape[0]
+        if not seq_len > self.window_size:
+            raise Exception("window size must be smaller then input sequence length.")
+
+        data = [
+            inputs[i:i+self.window_size] for i in range(0, seq_len-self.window_size, self.overlap)
+        ]
 
         data = np.stack(data, 0)
         return data
 
     @staticmethod
     def clean(labels: np.ndarray) -> np.array:
+        """
+
+
+        Args:
+            labels:
+
+        Returns:
+
+        """
         tmp = []
-        for l in labels:
-            window_size = len(l)
-            c = Counter(l)
-            common = c.most_common()
-            values = list(c.values())
+        for lbl in labels:
+            window_size = len(lbl)
+            counter = Counter(lbl)
+            common = counter.most_common()
+            values = list(counter.values())
             if common[0][0] == 0 and values[0] == window_size // 2:
                 label = common[1][0]
             else:
@@ -72,8 +89,8 @@ class FixedSlidingWindow(object):
 
         return np.array(tmp)
 
-    def __call__(self, x: np.ndarray, y: np.ndarray) -> Tuple[np.array, np.array]:
-        data = self.transform(x)
-        label = self.transform(y)
+    def __call__(self, data: np.ndarray, target: np.ndarray) -> Tuple[np.array, np.array]:
+        data = self.transform(data)
+        label = self.transform(target)
         label = self.clean(label)
         return data, label
