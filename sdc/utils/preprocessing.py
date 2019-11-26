@@ -4,6 +4,7 @@ from typing import Tuple
 from collections import Counter
 
 import numpy as np
+import tqdm
 
 
 class FixedSlidingWindow:
@@ -51,11 +52,12 @@ class FixedSlidingWindow:
 
             self.overlap = int(window_size * overlap_rate)
 
-    def transform(self, inputs: np.ndarray) -> np.ndarray:
+    def transform(self, inputs: np.ndarray, verbose: bool = False) -> np.ndarray:
         """
 
         Args:
             inputs: 2 or 3 dim of np.ndarray
+            verbose: if True, show progress bar
 
         Returns:
             np.ndarray
@@ -64,9 +66,12 @@ class FixedSlidingWindow:
         if not seq_len > self.window_size:
             raise Exception("window size must be smaller then input sequence length.")
 
-        data = [
-            inputs[i:i+self.window_size] for i in range(0, seq_len-self.window_size, self.overlap)
-        ]
+        if verbose:
+            data = []
+            for i in tqdm.tqdm(range(0, seq_len - self.window_size, self.overlap)):
+                data.append(inputs[i:i + self.window_size])
+        else:
+            data = [inputs[i:i + self.window_size] for i in range(0, seq_len-self.window_size, self.overlap)]
 
         data = np.stack(data, 0)
         return data
